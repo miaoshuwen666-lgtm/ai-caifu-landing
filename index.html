@@ -76,6 +76,7 @@
   .hero-frame .corner{position:absolute;width:26px;height:26px;border:2px solid var(--gold)}
   .hero-frame .corner.tl{top:-14px;left:-14px;border-right:none;border-bottom:none}
   .hero-frame .corner.br{bottom:-14px;right:-14px;border-left:none;border-top:none}
+  .hero-play-btn{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:64px;height:64px;border-radius:50%;border:2px solid rgba(255,255,255,.85);background:rgba(24,15,8,.45);color:#fff;font-size:22px;display:grid;place-items:center;cursor:pointer;padding:0 0 0 4px;box-shadow:0 8px 22px rgba(0,0,0,.35);backdrop-filter:blur(2px)}
   h1.hero-h1{font-size:clamp(26px,4vw,38px);font-weight:900;color:var(--ink);line-height:1.5;margin:26px auto 10px;max-width:640px}
   h1.hero-h1 b{color:var(--seal)}
   .hero-sub{font-size:15px;color:var(--ink-soft);max-width:520px;margin:0 auto 26px}
@@ -295,7 +296,8 @@
     <div style="text-align:center"><span class="hero-seal"><span class="badge-main" data-i18n="hero.badge">AI · 财道</span><span class="badge-sep"></span><span class="badge-sub" data-i18n="hero.badge.sub">全球华人成长计划</span><span class="shine"></span></span></div>
     <div class="hero-frame">
       <span class="corner tl"></span><span class="corner br"></span>
-      <video autoplay muted loop playsinline poster="assets/hero-video.jpg" src="assets/hero-video.mp4" aria-label="AI财道陪跑4天营 · 周文强老师"></video>
+      <video id="heroVideo" autoplay muted loop playsinline preload="auto" poster="assets/hero-video.jpg" src="assets/hero-video.mp4" aria-label="AI财道陪跑4天营 · 周文强老师"></video>
+      <button type="button" id="heroPlayBtn" class="hero-play-btn" aria-label="播放视频" style="display:none">▶</button>
     </div>
     <h1 class="hero-h1" data-i18n="hero.title">AI财道陪跑4天营<br><b>用财道智慧，抓住这个时代最大的趋势</b></h1>
     <p class="hero-sub" data-i18n="hero.sub">不需要懂代码，不需要辞职。财商方法论里，抓趋势本就是能不能赚到钱的关键一环——而现在最大的趋势，就是AI。4天，跟着周文强老师把AI变成你的第二收入引擎。</p>
@@ -1281,6 +1283,23 @@
       b.classList.toggle('active', b.getAttribute('data-setlang') === 'zh');
     });
   }
+
+  /* ===== 首屏视频：自动播放失败时显示手动播放按钮（部分手机浏览器/App内置浏览器会拦截自动播放） ===== */
+  (function(){
+    var heroVideo=document.getElementById('heroVideo');
+    var heroBtn=document.getElementById('heroPlayBtn');
+    if(!heroVideo||!heroBtn) return;
+    function showBtn(){ heroBtn.style.display='grid'; }
+    function hideBtn(){ heroBtn.style.display='none'; }
+    var playPromise=heroVideo.play();
+    if(playPromise!==undefined){ playPromise.catch(showBtn); }
+    setTimeout(function(){ if(heroVideo.paused) showBtn(); }, 1200);
+    heroBtn.addEventListener('click', function(){
+      heroVideo.muted=false;
+      heroVideo.play().then(hideBtn).catch(function(){ heroVideo.muted=true; heroVideo.play().then(hideBtn); });
+    });
+    heroVideo.addEventListener('playing', hideBtn);
+  })();
 </script>
 
 </body>
