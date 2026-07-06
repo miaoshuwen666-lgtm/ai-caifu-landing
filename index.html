@@ -1271,6 +1271,19 @@
     var staff=nextStaff();
     var link=isTW?LINE_LINK:('https://wa.me/'+staff.num+'?text='+encodeURIComponent(msg));
 
+    /* 同步写入 Google 表单/表格，方便后台统一查看报名名单 */
+    try{
+      var gfData=new URLSearchParams();
+      gfData.append('entry.489742637', name);
+      gfData.append('entry.340800003', '+'+fullWa);
+      gfData.append('entry.1410331119', line);
+      gfData.append('entry.873116350', wechat);
+      gfData.append('entry.1187248571', email);
+      fetch('https://docs.google.com/forms/u/0/d/e/1FAIpQLSfeKve0T3wmbQ7RwvSRrqL3ulCQNMnKeZnpj_eDFqcKMZZNRA/formResponse',{
+        method:'POST', mode:'no-cors', body:gfData
+      }).catch(function(){});
+    }catch(e){}
+
     form.style.display='none';
     document.getElementById('formFoot').style.display='none';
     document.getElementById('wkSuccess').style.display='block';
