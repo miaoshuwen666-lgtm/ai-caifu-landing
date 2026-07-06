@@ -1284,21 +1284,28 @@
     });
   }
 
-  /* ===== 首屏视频：自动播放失败时显示手动播放按钮（部分手机浏览器/App内置浏览器会拦截自动播放） ===== */
+  /* ===== 首屏视频：自动播放失败时可手动播放，播放中点击视频/按钮可暂停 ===== */
   (function(){
     var heroVideo=document.getElementById('heroVideo');
     var heroBtn=document.getElementById('heroPlayBtn');
     if(!heroVideo||!heroBtn) return;
     function showBtn(){ heroBtn.style.display='grid'; }
     function hideBtn(){ heroBtn.style.display='none'; }
+    function toggle(){
+      if(heroVideo.paused){
+        heroVideo.muted=false;
+        heroVideo.play().catch(function(){ heroVideo.muted=true; heroVideo.play(); });
+      }else{
+        heroVideo.pause();
+      }
+    }
     var playPromise=heroVideo.play();
     if(playPromise!==undefined){ playPromise.catch(showBtn); }
     setTimeout(function(){ if(heroVideo.paused) showBtn(); }, 1200);
-    heroBtn.addEventListener('click', function(){
-      heroVideo.muted=false;
-      heroVideo.play().then(hideBtn).catch(function(){ heroVideo.muted=true; heroVideo.play().then(hideBtn); });
-    });
+    heroBtn.addEventListener('click', toggle);
+    heroVideo.addEventListener('click', toggle);
     heroVideo.addEventListener('playing', hideBtn);
+    heroVideo.addEventListener('pause', showBtn);
   })();
 </script>
 
