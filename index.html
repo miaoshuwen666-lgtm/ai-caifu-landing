@@ -79,6 +79,10 @@
   .hero-play-btn{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:64px;height:64px;border-radius:50%;border:2px solid rgba(255,255,255,.85);background:rgba(24,15,8,.45);color:#fff;font-size:22px;display:grid;place-items:center;cursor:pointer;padding:0 0 0 4px;box-shadow:0 8px 22px rgba(0,0,0,.35);backdrop-filter:blur(2px)}
   .hero-progress{position:absolute;left:0;right:0;bottom:0;height:5px;background:rgba(255,255,255,.28);cursor:pointer;z-index:5}
   .hero-progress-fill{height:100%;width:0%;background:linear-gradient(90deg,var(--gold-lt),var(--gold));transition:width .1s linear}
+  .hero-video-caption{position:absolute;left:10px;right:10px;bottom:22px;text-align:center;z-index:4;pointer-events:none}
+  .hero-video-caption .txt{display:inline-block;font-size:14.5px;font-weight:900;font-family:"Noto Serif SC";color:#fff;background:rgba(24,15,8,.5);padding:8px 16px;border-radius:3px;text-shadow:0 1px 4px rgba(0,0,0,.5);backdrop-filter:blur(1px)}
+  .hero-video-caption .arrows{display:block;margin-top:8px;font-size:20px;animation:heroCaptionBounce 1.6s ease-in-out infinite;filter:drop-shadow(0 2px 4px rgba(0,0,0,.5))}
+  @keyframes heroCaptionBounce{0%,100%{transform:translateY(0)}50%{transform:translateY(6px)}}
   h1.hero-h1{font-size:clamp(26px,4vw,38px);font-weight:900;color:var(--ink);line-height:1.5;margin:26px auto 10px;max-width:640px}
   h1.hero-h1 b{color:var(--seal)}
   .hero-sub{font-size:15px;font-weight:700;color:var(--ink-soft);max-width:520px;margin:0 auto 26px}
@@ -326,8 +330,8 @@
       <video id="heroVideo" autoplay muted loop playsinline preload="auto" poster="assets/hero-video.jpg" src="assets/hero-video.mp4" aria-label="AI财道陪跑4天营 · 周文强老师"></video>
       <button type="button" id="heroPlayBtn" class="hero-play-btn" aria-label="播放视频" style="display:none">▶</button>
       <div id="heroProgress" class="hero-progress" aria-label="视频进度条"><div id="heroProgressFill" class="hero-progress-fill"></div></div>
+      <div class="hero-video-caption"><span class="txt" data-i18n="hero.caption">花3分钟，了解这4天你将获得什么。</span><span class="arrows">👇👇👇</span></div>
     </div>
-    <div style="text-align:center"><span class="hero-seal"><span class="badge-main" data-i18n="hero.badge">AI · 财道</span><span class="badge-sep"></span><span class="badge-sub" data-i18n="hero.badge.sub">全球华人成长计划</span><span class="shine"></span></span></div>
   </section>
 
   <hr class="brush">
@@ -835,6 +839,7 @@
     tw: {
       "hero.badge":"AI．財道",
       "hero.badge.sub":"全球華人成長計劃",
+      "hero.caption":"花3分鐘，了解這4天你將獲得什麼。",
       "hero.title":"AI財道陪跑4天營<br><b>用財道智慧，抓住這個時代最大的趨勢</b>",
       "hero.sub":"不需要懂代碼，不需要辭職。財商方法論裡，抓趨勢本就是能不能賺到錢的關鍵一環——而現在最大的趨勢，就是AI。4天，跟著周文強老師把AI變成你的第二收入引擎。",
       "cta.main":"立即報名",
@@ -1008,6 +1013,7 @@
     en: {
       "hero.badge":"AI · Wealth Path",
       "hero.badge.sub":"Global Chinese Growth Program",
+      "hero.caption":"3 minutes to see exactly what these 4 days will give you.",
       "hero.title":"AI Wealth Path 4-Day Camp<br><b>Use ancient wealth wisdom to catch the biggest trend of this era</b>",
       "hero.sub":"No coding needed, no need to quit your job. In financial intelligence, catching trends is what separates those who profit from those who don't — and right now, the biggest trend is AI. In 4 days, work with Mentor Zhou Wenqiang to turn AI into your second income engine.",
       "cta.main":"Register Now",
