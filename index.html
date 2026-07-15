@@ -77,9 +77,11 @@
   .hero-frame .corner.tl{top:-14px;left:-14px;border-right:none;border-bottom:none}
   .hero-frame .corner.br{bottom:-14px;right:-14px;border-left:none;border-top:none}
   .hero-play-btn{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:64px;height:64px;border-radius:50%;border:2px solid rgba(255,255,255,.85);background:rgba(24,15,8,.45);color:#fff;font-size:22px;display:grid;place-items:center;cursor:pointer;padding:0 0 0 4px;box-shadow:0 8px 22px rgba(0,0,0,.35);backdrop-filter:blur(2px)}
+  .hero-progress{position:absolute;left:0;right:0;bottom:0;height:5px;background:rgba(255,255,255,.28);cursor:pointer;z-index:5}
+  .hero-progress-fill{height:100%;width:0%;background:linear-gradient(90deg,var(--gold-lt),var(--gold));transition:width .1s linear}
   h1.hero-h1{font-size:clamp(26px,4vw,38px);font-weight:900;color:var(--ink);line-height:1.5;margin:26px auto 10px;max-width:640px}
   h1.hero-h1 b{color:var(--seal)}
-  .hero-sub{font-size:15px;color:var(--ink-soft);max-width:520px;margin:0 auto 26px}
+  .hero-sub{font-size:15px;font-weight:700;color:var(--ink-soft);max-width:520px;margin:0 auto 26px}
 
   /* 日期 + 倒计时 */
   .when{padding:6px 20px 10px;text-align:center}
@@ -322,6 +324,7 @@
       <span class="corner tl"></span><span class="corner br"></span>
       <video id="heroVideo" autoplay muted loop playsinline preload="auto" poster="assets/hero-video.jpg" src="assets/hero-video.mp4" aria-label="AI财道陪跑4天营 · 周文强老师"></video>
       <button type="button" id="heroPlayBtn" class="hero-play-btn" aria-label="播放视频" style="display:none">▶</button>
+      <div id="heroProgress" class="hero-progress" aria-label="视频进度条"><div id="heroProgressFill" class="hero-progress-fill"></div></div>
     </div>
     <div style="text-align:center"><span class="hero-seal"><span class="badge-main" data-i18n="hero.badge">AI · 财道</span><span class="badge-sep"></span><span class="badge-sub" data-i18n="hero.badge.sub">全球华人成长计划</span><span class="shine"></span></span></div>
   </section>
@@ -1426,6 +1429,22 @@
     heroVideo.addEventListener('click', toggle);
     heroVideo.addEventListener('playing', hideBtn);
     heroVideo.addEventListener('pause', showBtn);
+
+    var heroProgress=document.getElementById('heroProgress');
+    var heroProgressFill=document.getElementById('heroProgressFill');
+    if(heroProgress && heroProgressFill){
+      heroVideo.addEventListener('timeupdate', function(){
+        if(!heroVideo.duration) return;
+        heroProgressFill.style.width=(heroVideo.currentTime/heroVideo.duration*100)+'%';
+      });
+      heroProgress.addEventListener('click', function(e){
+        e.stopPropagation();
+        if(!heroVideo.duration) return;
+        var rect=heroProgress.getBoundingClientRect();
+        var ratio=(e.clientX-rect.left)/rect.width;
+        heroVideo.currentTime=ratio*heroVideo.duration;
+      });
+    }
   })();
 </script>
 
