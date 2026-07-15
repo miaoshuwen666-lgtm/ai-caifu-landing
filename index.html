@@ -109,6 +109,7 @@
   /* 痛点 */
   .pain-list{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--line);border:1px solid var(--line);max-width:860px;margin:0 auto}
   .pain-item{background:var(--card);padding:28px}
+  .pain-item img{width:100%;aspect-ratio:3/2;object-fit:cover;margin-bottom:16px;border:1px solid var(--line);display:block}
   .pain-item .num{font-family:"Noto Serif SC";font-size:13px;color:var(--gold-dp);letter-spacing:2px;margin-bottom:10px}
   .pain-item h4{font-size:18px;color:var(--ink);font-weight:900;margin-bottom:10px}
   .pain-item p{font-size:14.5px;line-height:1.9}
@@ -340,11 +341,13 @@
       </div>
       <div class="pain-list">
         <div class="pain-item">
+          <img loading="lazy" src="assets/pain1.jpg" alt="每天很忙，但收入没有突破">
           <div class="num" data-i18n="pain.item1.num">壹 · ONE</div>
           <h4 data-i18n="pain.item1.h4">每天很忙，但收入没有突破</h4>
           <p data-i18n="pain.item1.p">工作堆积如山，每天加班熬夜，但薪水依旧原地踏步。感觉自己像个不停旋转的陀螺，却不知道终点在哪里。</p>
         </div>
         <div class="pain-item">
+          <img loading="lazy" src="assets/pain2.jpg" alt="想改变，却找不到真正路径">
           <div class="num" data-i18n="pain.item2.num">贰 · TWO</div>
           <h4 data-i18n="pain.item2.h4">想改变，却找不到真正路径</h4>
           <p data-i18n="pain.item2.p">看别人用AI赚钱，你却无从下手。买了很多课，学了很多知识，但依然无法变现，焦虑感与日俱增。</p>
